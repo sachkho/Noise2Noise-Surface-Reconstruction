@@ -1,0 +1,64 @@
+nohup: ignoring input
+DÉMARRAGE DE L'ENTRAÎNEMENT (VERSION COMPATIBLE)...
+2026-03-20 14:44:28.384524: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+WARNING:tensorflow:From /opt/conda/envs/tf/lib/python3.6/site-packages/tensorflow/python/compat/v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+2026-03-20 14:44:30.279866: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+test_res_dir: deleted and then created!
+/opt/conda/envs/tf/lib/python3.6/site-packages/tensorflow/python/keras/legacy_tf_layers/core.py:171: UserWarning: `tf.layers.dense` is deprecated and will be removed in a future version. Please use `tf.keras.layers.Dense` instead.
+  warnings.warn('`tf.layers.dense` is deprecated and '
+/opt/conda/envs/tf/lib/python3.6/site-packages/tensorflow/python/keras/engine/base_layer_v1.py:1692: UserWarning: `layer.apply` is deprecated and will be removed in a future version. Please use `layer.__call__` method instead.
+  warnings.warn('`layer.apply` is deprecated and '
+net: Tensor("dis/dis_decoder/resnetBlockFC_7/dense/BiasAdd:0", shape=(?, 512), dtype=float32)
+grad [<tf.Tensor 'dis/gradients/dis/dense_1/MatMul_grad/MatMul:0' shape=(?, 3) dtype=float32>]
+Tensor("dis/gradients/dis/dense_1/MatMul_grad/MatMul:0", shape=(?, 3), dtype=float32)
+normal_p_lenght Tensor("dis/ExpandDims:0", shape=(?, 1), dtype=float32)
+grad_norm Tensor("dis/truediv:0", shape=(?, 3), dtype=float32)
+net: Tensor("dis_1/dis_decoder/resnetBlockFC_7/dense/BiasAdd:0", shape=(?, 512), dtype=float32)
+grad [<tf.Tensor 'dis_1/gradients/AddN_11:0' shape=(?, 3) dtype=float32>]
+Tensor("dis_1/gradients/AddN_11:0", shape=(?, 3), dtype=float32)
+normal_p_lenght Tensor("dis_1/ExpandDims:0", shape=(?, 1), dtype=float32)
+grad_norm Tensor("dis_1/truediv:0", shape=(?, 3), dtype=float32)
+(5000, 3) (?, 3)
+(5000,)
+geo loss: Tensor("Mean_2:0", shape=(), dtype=float32) Tensor("Mean_1:0", shape=(), dtype=float32)
+2026-03-20 14:44:42.469563: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-03-20 14:44:42.478320: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcuda.so.1
+2026-03-20 14:44:42.668150: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2026-03-20 14:44:42.671951: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties: 
+pciBusID: 0000:00:04.0 name: Tesla T4 computeCapability: 7.5
+coreClock: 1.59GHz coreCount: 40 deviceMemorySize: 14.57GiB deviceMemoryBandwidth: 298.08GiB/s
+2026-03-20 14:44:42.672024: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
+2026-03-20 14:44:42.761615: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublas.so.11
+2026-03-20 14:44:42.761759: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublasLt.so.11
+2026-03-20 14:44:42.816257: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcufft.so.10
+2026-03-20 14:44:42.829625: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcurand.so.10
+2026-03-20 14:44:42.843788: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusolver.so.11
+2026-03-20 14:44:42.882696: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusparse.so.11
+2026-03-20 14:44:42.888906: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudnn.so.8
+2026-03-20 14:44:42.889146: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2026-03-20 14:44:42.892541: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2026-03-20 14:44:42.895508: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0
+2026-03-20 14:44:45.822218: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1258] Device interconnect StreamExecutor with strength 1 edge matrix:
+2026-03-20 14:44:45.822288: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1264]      0 
+2026-03-20 14:44:45.822302: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1277] 0:   N 
+2026-03-20 14:44:45.822599: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2026-03-20 14:44:45.825150: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2026-03-20 14:44:45.827144: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:937] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2026-03-20 14:44:45.829109: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1418] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 13618 MB memory) -> physical GPU (device: 0, name: Tesla T4, pci bus id: 0000:00:04.0, compute capability: 7.5)
+train start
+2026-03-20 14:44:45.904763: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2299995000 Hz
+(500000, 1, 3) (2000000, 3)
+2026-03-20 14:44:46.691854: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublas.so.11
+2026-03-20 14:44:49.630730: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublasLt.so.11
+epoch: 0 epoch loss: 0.43980265 loss_emd_c: 0.29838553 loss_zero_c: 0.3430172
+save model
+epoch: 2000 epoch loss: 0.068560034 loss_emd_c: 0.06773911 loss_zero_c: 0.0037525906
+epoch: 4000 epoch loss: 0.065561764 loss_emd_c: 0.06534118 loss_zero_c: 0.007374602
+epoch: 6000 epoch loss: 0.06696656 loss_emd_c: 0.06675067 loss_zero_c: 0.007598652
+epoch: 8000 epoch loss: 0.07346282 loss_emd_c: 0.073313996 loss_zero_c: 0.013539212
+epoch: 10000 epoch loss: 0.068256505 loss_emd_c: 0.068319075 loss_zero_c: 0.005374977
+save model
+epoch: 12000 epoch loss: 0.064653546 loss_emd_c: 0.064602815 loss_zero_c: 0.0046907896
