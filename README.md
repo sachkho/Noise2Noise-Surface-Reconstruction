@@ -54,3 +54,21 @@ python3 noise2noise.py --data_dir ./data --dataname chair_noisy --out_dir ./outp
 
 ## Résultats
 Les maillages extraits illustrent l'évolution de la reconstruction selon le seuil d'iso-surface c. L'intégration de l'encodage positionnel a permis d'améliorer la définition topologique par rapport aux premiers tests.
+
+## Références et Crédits
+
+Ce projet s'appuie sur les travaux de recherche et l'implémentation originale de Baorui Ma et ses collaborateurs.
+
+### Article original
+- **Titre** : *Surface Reconstruction from Noisy Point Clouds via Noise-to-Noise Mapping*
+- **Auteurs** : Baorui Ma, Yu-Shen Liu, Matthias Zwicker, Zhizhong Han
+- **Conférence** : ICML 2022 / CVPR (selon la version)
+
+### Remerciements
+Je tiens à remercier les auteurs pour la mise à disposition du code source original qui a servi de base à ce projet. Mes contributions se sont concentrées sur :
+1. L'implémentation de l'**Encodage Positionnel** pour améliorer la capture des détails topologiques.
+2. L'optimisation du pipeline d'exécution sur l'infrastructure **Google Cloud Platform**.
+3. L'analyse de sensibilité des paramètres d'extraction par **Marching Cubes**.
+
+---
+Projet réalisé dans le cadre académique - Mars 2026.
