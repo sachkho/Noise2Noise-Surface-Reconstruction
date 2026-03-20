@@ -1,72 +1,52 @@
-# Learning Signed Distance Functions from Noisy 3D Point Clouds via Noise to Noise Mapping (ICML 2023 Oral)
+# Reconstruction de Surfaces 3D : Approche Noise-to-Noise Mapping
 
-<h2 align="center"><a href="https://mabaorui.github.io/Noise2NoiseMapping/">Project Page</a> | <a href="https://mabaorui.github.io/">Personal Web Page</a> | <a href="https://arxiv.org/abs/2306.01405">Paper</a></h2>
+Ce dépôt contient l'implémentation du projet de reconstruction de surfaces 3D à partir de nuages de points non orientés et fortement bruités. Ce travail s'appuie sur la méthode Noise-to-Noise Mapping, avec une amélioration spécifique via l'encodage positionnel.
 
-<p align="left">
-  <img src="img/demo.png" width="780" />
-</p>
+## Objectif du Projet
+L'enjeu est de transformer un nuage de points brut (issu d'un capteur LiDAR simulé) en une surface continue et propre, représentée par une fonction de distance signée (SDF). La particularité de cette approche est l'apprentissage non-supervisé : le modèle n'utilise jamais de données de référence propres (Ground Truth).
 
-This repository contains the code to reproduce the results from the paper.
-<a href="https://arxiv.org/abs/2306.01405">Learning Signed Distance Functions from Noisy 3D Point Clouds via Noise to Noise Mapping</a>
-<!-- [Learning Signed Distance Functions from Noisy 3D Point Clouds via Noise to Noise Mapping](pdf/learning_signed_distance_funct.pdf). -->
+## Contribution technique : L'Encodage Positionnel
 
-You can find detailed usage instructions for preprocessing data and training your own models below.
+La version originale du modèle utilisant des réseaux MLP classiques souffre d'un biais spectral : le réseau a tendance à lisser excessivement les surfaces, fusionnant les structures fines (comme les lattes de la chaise Adirondack utilisée pour les tests).
 
-## Installation
-First you have to make sure that you have all dependencies in place.
-The simplest way to do so, is to use [anaconda](https://www.anaconda.com/). 
+### Justification théorique
+Pour corriger ce lissage, j'ai implémenté une couche d'encodage harmonique. Avant d'entrer dans le réseau, les coordonnées (x, y, z) sont projetées dans un espace de plus haute dimension à l'aide de fonctions périodiques :
 
-You can create an anaconda environment called `tf` using
-```
-conda env create -f tf.yaml
-conda activate tf
-```
+gamma(p) = (sin(2^0 * pi * p), cos(2^0 * pi * p), ..., sin(2^{L-1} * pi * p), cos(2^{L-1} * pi * p))
 
-## Data Processing
+### Impact sur le modèle
+- Augmentation de la dimensionnalité : Avec L=6, le vecteur d'entrée passe de 3 à 39 dimensions.
+- Capture des hautes fréquences : Cette transformation permet au réseau de percevoir des variations spatiales plus rapides, facilitant la séparation des structures disjointes et la précision des arêtes.
 
-First downloading the dataset you would like to use (e.g.  <a href="https://shapenet.org/">ShapeNet</a>). Then you can generate the noisy point cloud data for training as:
+## Configuration et Installation
 
-```
-python gen_noise.py /PATH/TO/YOUR/DATA/dataname.ply(obj,off,etc.) /PATH/TO/SAVEDATA/savename.ply
-```
+Ce projet a été déployé et testé sur Google Cloud Platform (GCP) avec une instance GPU NVIDIA Tesla T4.
 
-You can simply modify the code for processing your own data.
+### Pré-requis
+- Python 3.x
+- TensorFlow 1.15 (ou compat v1)
+- CUDA et noyaux personnalisés pour la perte EMD (approxmatch)
+- Trimesh et Libmcubes (pour l'extraction de maillages)
 
-## Training
-You can now train the network by runing 
+## Utilisation
 
-```
-python noise2noise.py --dataname savename --data_dir /PATH/TO/SAVEDATA --CUDA 0 --out_dir /PATH/TO/OUTPUT --train --save_idx -1
-```
+### 1. Préparation des données
+Générer le nuage de points bruité à partir d'un fichier .off :
+python3 gen_noise.py --input chair.off --output data/chair_noisy.ply
 
-## Related work
-```bash
-Pytorch 
-https://github.com/mabaorui/NeuralPull-Pytorch
-https://github.com/junshengzhou/CAP-UDF
-Tensorflow
-https://github.com/mabaorui/NeuralPull
-https://github.com/mabaorui/OnSurfacePrior
-https://github.com/mabaorui/PredictableContextPrior
-```
+### 2. Entraînement
+Pour lancer l'apprentissage (configuré à 50 000 itérations) :
+python3 noise2noise.py --train --data_dir ./data --dataname chair_noisy --out_dir ./output_deep --CUDA 0
 
-## Citation
+### 3. Test et Extraction (Marching Cubes)
+Pour générer le maillage .obj final à partir de la SDF apprise :
+python3 noise2noise.py --data_dir ./data --dataname chair_noisy --out_dir ./output_deep --save_idx -1 --CUDA 0
 
-If you find our code or paper useful, please consider citing
+## Structure du dépôt
+- noise2noise.py : Script principal incluant l'architecture du réseau et l'implémentation de l'encodage positionnel.
+- approxmatch/ : Code source C++/CUDA pour le calcul de l'Earth Mover's Distance (EMD).
+- im2mesh/ : Utilitaires pour l'extraction de surfaces par l'algorithme des Marching Cubes.
+- data/ : Dossier contenant les nuages de points d'entrée.
 
-    @inproceedings{BaoruiNoise2NoiseMapping,
-        title = {Learning Signed Distance Functions from Noisy 3D Point Clouds via Noise to Noise Mapping},
-        author = {Baorui Ma and Yu-Shen Liu and Zhizhong Han},
-        booktitle = {International Conference on Machine Learning (ICML)},
-        year = {2023}
-    }
-
-## Surface Reconstruction Demo
-<p align="left">
-  <img src="img/ParisZoom1.png" width="780" />
-</p>
-
-<p align="left">
-  <img src="img/ShapeNet1.png" width="780" />
-</p>
-
+## Résultats
+Les maillages extraits illustrent l'évolution de la reconstruction selon le seuil d'iso-surface c. L'intégration de l'encodage positionnel a permis d'améliorer la définition topologique par rapport aux premiers tests.
