@@ -57,18 +57,18 @@ Les maillages extraits illustrent l'évolution de la reconstruction selon le seu
 
 ## Références et Crédits
 
-Ce projet s'appuie sur les travaux de recherche et l'implémentation originale de Baorui Ma et ses collaborateurs.
+Ce projet s'appuie sur les travaux de recherche et l'implémentation originale présentés dans l'article suivant :
 
-### Article original
-- **Titre** : *Surface Reconstruction from Noisy Point Clouds via Noise-to-Noise Mapping*
-- **Auteurs** : Baorui Ma, Yu-Shen Liu, Matthias Zwicker, Zhizhong Han
-- **Conférence** : ICML 2022 / CVPR (selon la version)
+### Article de référence
+- **Titre** : *Fast Learning of Signed Distance Functions from Noisy Point Clouds via Noise-to-Noise Mapping*
+- **Auteurs** : Baorui Ma, Yu-Shen Liu, Zhizhong Han
+- **Publication** : arXiv / IEEE (Version 2023/2024)
 
-### Remerciements
-Je tiens à remercier les auteurs pour la mise à disposition du code source original qui a servi de base à ce projet. Mes contributions se sont concentrées sur :
-1. L'implémentation de l'**Encodage Positionnel** pour améliorer la capture des détails topologiques.
-2. L'optimisation du pipeline d'exécution sur l'infrastructure **Google Cloud Platform**.
-3. L'analyse de sensibilité des paramètres d'extraction par **Marching Cubes**.
+### Contributions personnelles
+Dans le cadre de ce projet, j'ai adapté le code original pour :
+1. **Intégrer l'Encodage Positionnel** : Amélioration de la capture des hautes fréquences pour pallier le lissage excessif sur les géométries complexes (chaise Adirondack).
+2. **Optimisation Infra** : Déploiement et configuration du pipeline d'entraînement sur Google Cloud Platform avec accélération GPU (Tesla T4).
+3. **Analyse de Sensibilité** : Étude de l'impact des seuils d'iso-surface ($c$) sur la topologie reconstruite à partir de champs de distance bruités.
 
 ---
-Projet réalisé dans le cadre académique - Mars 2026.
+Projet réalisé dans un cadre académique - Mars 2026.
