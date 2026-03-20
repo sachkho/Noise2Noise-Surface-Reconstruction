@@ -12,7 +12,7 @@ La version originale du modèle utilisant des réseaux MLP classiques souffre d'
 ### Justification théorique
 Pour corriger ce lissage, j'ai implémenté une couche d'encodage harmonique. Avant d'entrer dans le réseau, les coordonnées (x, y, z) sont projetées dans un espace de plus haute dimension à l'aide de fonctions périodiques :
 
-gamma(p) = (sin(2^0 * pi * p), cos(2^0 * pi * p), ..., sin(2^{L-1} * pi * p), cos(2^{L-1} * pi * p))
+$$\gamma(p) = (\sin(2^0 \pi p), \cos(2^0 \pi p), \dots, \sin(2^{L-1} \pi p), \cos(2^{L-1} \pi p))$$
 
 ### Impact sur le modèle
 - Augmentation de la dimensionnalité : Avec L=6, le vecteur d'entrée passe de 3 à 39 dimensions.
@@ -32,16 +32,20 @@ Ce projet a été déployé et testé sur Google Cloud Platform (GCP) avec une i
 
 ### 1. Préparation des données
 Générer le nuage de points bruité à partir d'un fichier .off :
+```bash
 python3 gen_noise.py --input chair.off --output data/chair_noisy.ply
+```
 
 ### 2. Entraînement
 Pour lancer l'apprentissage (configuré à 50 000 itérations) :
+```bash
 python3 noise2noise.py --train --data_dir ./data --dataname chair_noisy --out_dir ./output_deep --CUDA 0
-
+```
 ### 3. Test et Extraction (Marching Cubes)
 Pour générer le maillage .obj final à partir de la SDF apprise :
+```bash
 python3 noise2noise.py --data_dir ./data --dataname chair_noisy --out_dir ./output_deep --save_idx -1 --CUDA 0
-
+```
 ## Structure du dépôt
 - noise2noise.py : Script principal incluant l'architecture du réseau et l'implémentation de l'encodage positionnel.
 - approxmatch/ : Code source C++/CUDA pour le calcul de l'Earth Mover's Distance (EMD).
